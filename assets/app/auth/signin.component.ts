@@ -1,5 +1,7 @@
 import { Component } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { AuthService } from "./auth.service";
+import { User } from "./user.model";
 
 @Component({
     selector:'app-signin',
@@ -7,8 +9,18 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 })
 export class SigninComponent{
     myForm: FormGroup;
-
+    constructor(private authService: AuthService){}
     onSubmit() {
+        const user = new User(this.myForm.value.email,this.myForm.value.password);
+        this.authService.signin(user)
+            .subscribe(
+                data => {
+                    localStorage.setItem('token',data.token);
+                    localStorage.setItem('userId',data.userId);
+
+                },
+                error => console.error(error)
+            );
         console.log(this.myForm);
         this.myForm.reset();
     }
