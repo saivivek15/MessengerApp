@@ -4,7 +4,7 @@ import { ErrorService } from "./error.service";
 
 @Component({
     selector: 'app-error',
-    templateUrl: '/error.component.html',
+    templateUrl: './error.component.html',
     styles: [`
     .backdrop {
         background-color: rgba(0,0,0,0.6);
